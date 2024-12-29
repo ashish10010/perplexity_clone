@@ -5,6 +5,11 @@ class SearchSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Container(
+      width: 64,
+      child: Column(
+        
+      ),
+    );
   }
 }
