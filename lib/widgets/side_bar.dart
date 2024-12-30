@@ -11,17 +11,16 @@ class SideBar extends StatefulWidget {
 
 class _SideBarState extends State<SideBar> {
   bool isCollapsed = true;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(microseconds: 100),
-      width: isCollapsed ? 64 : 160,
+      duration: const Duration(milliseconds: 100),
+      width: isCollapsed ? 64 : 150,
       color: AppColors.sideNav,
       child: Column(
         children: [
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Icon(
             Icons.auto_awesome_mosaic,
             color: AppColors.whiteColor,
@@ -33,9 +32,7 @@ class _SideBarState extends State<SideBar> {
                   ? CrossAxisAlignment.center
                   : CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 SideBarButton(
                   isCollapsed: isCollapsed,
                   icon: Icons.add,
@@ -72,8 +69,8 @@ class _SideBarState extends State<SideBar> {
               });
             },
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 100),
-              margin: EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+              duration: const Duration(milliseconds: 100),
+              margin: EdgeInsets.symmetric(vertical: 14),
               child: Icon(
                 isCollapsed
                     ? Icons.keyboard_arrow_right
@@ -83,9 +80,7 @@ class _SideBarState extends State<SideBar> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
         ],
       ),
     );

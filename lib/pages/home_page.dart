@@ -8,18 +8,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          SideBar(),
-          Column(
-            children: [
-          SearchSection(),
-          //footer
-            ],
-          ),
-        
-        ],
-      )
-    );
+        body: Row(
+      children: [
+        SideBar(),
+        Column(
+          children: [
+            Expanded(
+              child: SearchSection(),
+            ),
+            Container(
+              height: 20,
+            ),
+          ],
+        ),
+      ],
+    ));
   }
 }
