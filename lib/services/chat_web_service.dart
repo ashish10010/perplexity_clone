@@ -14,5 +14,7 @@ class ChatWebService {
     });
   }
 
-  void chat() {}
+  void chat(String query) {
+    _socket!.send({'query': query});
+  }
 }
