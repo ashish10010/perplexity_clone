@@ -1,6 +1,8 @@
 # perplexity_clone
+A flutter RAG app with fastapi and geminiai->Simple Perplexity Clone. 
 
-A new Flutter project.
+Frontend: Flutter 
+Backend: FastAPI 
 
 ## Getting Started
 
