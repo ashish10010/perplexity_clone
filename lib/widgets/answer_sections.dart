@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:perplexity_clone/services/chat_web_service.dart';
 import 'package:perplexity_clone/theme/colors.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class AnswerSections extends StatefulWidget {
   const AnswerSections({super.key});
@@ -10,6 +12,7 @@ class AnswerSections extends StatefulWidget {
 }
 
 class _AnswerSectionsState extends State<AnswerSections> {
+  bool isLoading = true;
   String fullResponse = '''
   India faced Australia in the fourth Test of their series, which concluded on December 30, 2024. Australia emerged victorious, winning by 184 runs, thereby taking a 2-1 lead in the five-match series.
 Match Summary
@@ -27,6 +30,21 @@ Series Context
 This match was crucial as it shifted the momentum in favor of Australia after India had won the first Test in Perth. The second Test saw Australia bounce back with a win in Adelaide, while the third Test ended in a draw in Brisbane. With this latest victory, Australia now leads the series heading into the final Test, which is set to begin on January 5, 2025, in Sydney1.
 The match was characterized by high-quality cricket and intense competition between two elite teams, but ultimately India's inability to capitalize on key partnerships led to their downfall on the final day
   ''';
+
+  @override
+  void initState() {
+    ChatWebService().contentStream.listen((data) {
+      if (isLoading) {
+        fullResponse = "";
+      }
+      setState(() {
+        fullResponse += data['data'];
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,17 +57,25 @@ The match was characterized by high-quality cricket and intense competition betw
             fontSize: 18,
           ),
         ),
-        Markdown(
-          data: fullResponse,
-          shrinkWrap: true,
-          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-            codeblockDecoration: BoxDecoration(
-              color: AppColors.cardColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            code: TextStyle(
-              fontSize: 16,
-            )
+        Skeletonizer(
+          enabled: isLoading,
+          effect: ShimmerEffect(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.grey.shade100,
+            duration: Duration(seconds: 1),
+          ),
+          child: Markdown(
+            data: fullResponse,
+            shrinkWrap: true,
+            styleSheet:
+                MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
+                    codeblockDecoration: BoxDecoration(
+                      color: AppColors.cardColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    code: TextStyle(
+                      fontSize: 16,
+                    )),
           ),
         ),
       ],
